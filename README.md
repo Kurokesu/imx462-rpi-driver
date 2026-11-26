@@ -68,10 +68,14 @@ rpicam-hello --list-cameras
 Expected output:
 
 ```
-[verify] paste fresh rpicam-hello --list-cameras output here
+Available cameras
+-----------------
+0 : imx462 [1945x1097 12-bit RGGB] (/base/axi/pcie@1000120000/rp1/i2c@70000/imx290@1a)
+    Modes: 'SRGGB10_CSI2P' : 1280x720 [60.00 fps - (332, 188)/1280x720 crop]
+                             1920x1080 [60.00 fps - (12, 8)/1920x1080 crop]
+           'SRGGB12_CSI2P' : 1280x720 [60.00 fps - (332, 188)/1280x720 crop]
+                             1920x1080 [60.00 fps - (12, 8)/1920x1080 crop]
 ```
-
-*Output shown for cam1 port on Pi 5.* [verify]
 
 Start live preview:
 
@@ -152,17 +156,15 @@ Mono modules output `Y10` and `Y12` greyscale formats instead of Bayer.
 | Link frequency | Data rate / lane | Lanes | Bit depth | Width | Height | Max FPS |
 |---|---|---|---|---|---|---|
 | **1280×720 (sensor crop)** | | | | | | |
-| 148.5 MHz | 297 Mbps | 4 | 10-bit | 1280 | 720 | [verify] |
-| 148.5 MHz | 297 Mbps | 4 | 12-bit | 1280 | 720 | [verify] |
-| 297 MHz | 594 Mbps | 2 | 10-bit | 1280 | 720 | [verify] |
-| 297 MHz | 594 Mbps | 2 | 12-bit | 1280 | 720 | [verify] |
+| 148.5 MHz | 297 Mbps | 4 | 10-bit | 1280 | 720 | 60 fps |
+| 148.5 MHz | 297 Mbps | 4 | 12-bit | 1280 | 720 | 60 fps |
+| 297 MHz | 594 Mbps | 2 | 10-bit | 1280 | 720 | 60 fps |
+| 297 MHz | 594 Mbps | 2 | 12-bit | 1280 | 720 | 60 fps |
 | **1920×1080 (full resolution)** | | | | | | |
-| 222.75 MHz | 445.5 Mbps | 4 | 10-bit | 1920 | 1080 | [verify] |
-| 222.75 MHz | 445.5 Mbps | 4 | 12-bit | 1920 | 1080 | [verify] |
-| 445.5 MHz | 891 Mbps | 2 | 10-bit | 1920 | 1080 | [verify] |
-| 445.5 MHz | 891 Mbps | 2 | 12-bit | 1920 | 1080 | [verify] |
-
-Driver selects link frequency from mode and lane count.
+| 222.75 MHz | 445.5 Mbps | 4 | 10-bit | 1920 | 1080 | 60 fps |
+| 222.75 MHz | 445.5 Mbps | 4 | 12-bit | 1920 | 1080 | 60 fps |
+| 445.5 MHz | 891 Mbps | 2 | 10-bit | 1920 | 1080 | 60 fps |
+| 445.5 MHz | 891 Mbps | 2 | 12-bit | 1920 | 1080 | 60 fps |
 
 ## HCG mode
 
@@ -186,7 +188,15 @@ Check [Setup](#setup) steps first: `camera_auto_detect=0`, overlay line under `[
 dmesg | grep imx290
 ```
 
-`Could not initialize device` means sensor does not answer on I2C. Check camera port and cable seating, with Pi powered off.
+`Could not initialize device` means sensor does not answer on I2C:
+
+```
+imx290 0-001a: Error writing reg 0x3000: -121
+imx290 0-001a: error -EREMOTEIO: Could not initialize device
+imx290 0-001a: probe with driver imx290 failed with error -121
+```
+
+Check camera port and cable seating, with Pi powered off.
 
 `Could not create camera helper for imx462` means libcamera predates IMX462 support. Update OS as shown in [Setup](#setup).
 
