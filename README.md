@@ -21,6 +21,15 @@ Raspberry Pi setup for Sony IMX462, a 2 MP 1/2.8" STARVIS low-light CMOS sensor 
 
 Connect camera to CSI port with Pi powered off.
 
+For mono modules, enable Kurokesu apt archive first. Stock Raspberry Pi OS does not ship `imx462_mono.json` tuning file yet, Kurokesu `libcamera` fork does:
+
+```bash
+curl -fsSLO https://apt.kurokesu.com/setup.sh
+sudo sh setup.sh
+```
+
+*With archive enabled, next step upgrades stock `rpicam-apps` and `libcamera` to Kurokesu forks.*
+
 Update OS and reboot:
 
 ```bash
@@ -144,6 +153,8 @@ dtoverlay=imx462,mono
 
 Mono modules output `Y10` and `Y12` greyscale formats instead of Bayer.
 
+Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
+
 > [!TIP]
 > Options can be combined. Example (cam0, 4-lane, mono):
 >
@@ -199,6 +210,28 @@ imx290 0-001a: probe with driver imx290 failed with error -121
 Check camera port and cable seating, with Pi powered off.
 
 `Could not create camera helper for imx462` means libcamera predates IMX462 support. Update OS as shown in [Setup](#setup).
+
+### Why does mono module image have blue tint?
+
+Without `mono` option, driver reports Bayer format and libcamera processes greyscale image as color. Append `,mono` to overlay line, see [mono](#mono).
+
+### Why does mono module fail with "imx462_mono.json not found"?
+
+With `mono` option, libcamera looks for `imx462_mono.json` tuning file, which stock Raspberry Pi OS does not ship yet:
+
+```
+ERROR IPAProxy ipa_proxy.cpp:189 Configuration file 'imx462_mono.json' not found for IPA module 'rpi/pisp'
+```
+
+Kurokesu `libcamera` fork ships it. Enable Kurokesu apt archive as shown in [Setup](#setup), then update OS and reboot.
+
+To stay on stock packages, use IMX296 mono tuning file instead, which has same black level:
+
+```bash
+rpicam-hello -t 0 --tuning-file /usr/share/libcamera/ipa/rpi/pisp/imx296_mono.json
+```
+
+On Pi 4 and older, replace `pisp` with `vc4`.
 
 ## Credits
 
