@@ -151,7 +151,7 @@ For mono modules, append `,mono`:
 dtoverlay=imx462,mono
 ```
 
-Mono modules output `Y10` and `Y12` greyscale formats instead of Bayer.
+Mono modules output `Y10` and `Y12` grayscale formats instead of Bayer.
 
 Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
 
@@ -179,12 +179,17 @@ Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
 
 ## HCG mode
 
-High conversion gain (HCG) is set via module parameter. New value applies at next stream start:
+IMX462 supports High Conversion Gain (HCG) mode for improved signal-to-noise ratio in low light, at cost of lower full-well capacity. Default is Low Conversion Gain (LCG).
+
+HCG is set via module parameter. New value applies at next stream start:
 
 ```bash
 # 0=off, 1=on
 echo 1 | sudo tee /sys/module/imx290/parameters/hcg_mode
 ```
+
+> [!NOTE]
+> libcamera is not aware of HCG, so reported analog gain does not include it.
 
 > [!NOTE]
 > Module parameter is global: it applies to all sensors on `imx290` driver, including IMX290 and IMX327.
@@ -213,7 +218,7 @@ Check camera port and cable seating, with Pi powered off.
 
 ### Why does mono module image have blue tint?
 
-Without `mono` option, driver reports Bayer format and libcamera processes greyscale image as color. Append `,mono` to overlay line, see [mono](#mono).
+Without `mono` option, driver reports Bayer format and libcamera processes grayscale image as color. Append `,mono` to overlay line, see [mono](#mono).
 
 ### Why does mono module fail with "imx462_mono.json not found"?
 
