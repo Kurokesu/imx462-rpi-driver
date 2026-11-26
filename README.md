@@ -179,7 +179,7 @@ Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
 
 ## HCG mode
 
-IMX462 supports High Conversion Gain (HCG) mode for improved signal-to-noise ratio in low light, at cost of lower full-well capacity. Default is Low Conversion Gain (LCG).
+IMX462 supports high conversion gain (HCG) mode for improved signal-to-noise ratio in low light, at cost of lower full-well capacity. Default is low conversion gain (LCG).
 
 HCG is set via module parameter. New value applies at next stream start:
 
@@ -189,10 +189,7 @@ echo 1 | sudo tee /sys/module/imx290/parameters/hcg_mode
 ```
 
 > [!NOTE]
-> libcamera is not aware of HCG, so reported analog gain does not include it.
-
-> [!NOTE]
-> Module parameter is global: it applies to all sensors on `imx290` driver, including IMX290 and IMX327.
+> Module parameter is global: it applies to all sensors on `imx290` driver, including IMX290 and IMX327. libcamera is not aware of HCG, so reported analog gain does not include it.
 
 ## FAQ
 
