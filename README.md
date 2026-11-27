@@ -47,16 +47,16 @@ Make two changes:
 
 1. Find `camera_auto_detect` near the top and set it to `0`:
 
-```ini
-camera_auto_detect=0
-```
+   ```ini
+   camera_auto_detect=0
+   ```
 
 2. Add `dtoverlay=imx462` under the `[all]` section at the bottom of the file:
 
-```ini
-[all]
-dtoverlay=imx462
-```
+   ```ini
+   [all]
+   dtoverlay=imx462
+   ```
 
 *If camera is connected to cam0 port, use `dtoverlay=imx462,cam0` instead. See [cam0](#cam0).*
 
@@ -76,7 +76,7 @@ rpicam-hello --list-cameras
 
 Expected output:
 
-```
+```text
 Available cameras
 -----------------
 0 : imx462 [1945x1097 12-bit RGGB] (/base/axi/pcie@1000120000/rp1/i2c@70000/imx290@1a)
@@ -107,7 +107,7 @@ IMX462 runs on `imx290` family driver, which also covers IMX290 and IMX327. Came
 `imx462` overlay supports comma-separated options to override defaults:
 
 | option | description | default |
-|--------|-------------|---------|
+| --- | --- | --- |
 | [`cam0`](#cam0) | Use cam0 port instead of cam1 | cam1 |
 | [`4lane`](#4lane) | Use 4-lane MIPI CSI-2 (if wired) | 2 lanes |
 | [`clock-frequency=<Hz>`](#clock-frequency) | Sensor input clock (Hz) | 37125000 |
@@ -156,7 +156,7 @@ Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
 ## Output formats
 
 | Link frequency | Data rate / lane | Lanes | Bit depth | Width | Height | Max FPS |
-|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- |
 | **1280×720 (sensor crop)** | | | | | | |
 | 148.5 MHz | 297 Mbps | 4 | 10-bit | 1280 | 720 | 60 fps |
 | 148.5 MHz | 297 Mbps | 4 | 12-bit | 1280 | 720 | 60 fps |
@@ -201,7 +201,7 @@ dmesg | grep imx290
 
 `Could not initialize device` means sensor does not answer on I2C:
 
-```
+```text
 imx290 0-001a: Error writing reg 0x3000: -121
 imx290 0-001a: error -EREMOTEIO: Could not initialize device
 imx290 0-001a: probe with driver imx290 failed with error -121
@@ -219,7 +219,7 @@ Without `mono` option, driver reports Bayer format and libcamera processes grays
 
 With `mono` option, libcamera looks for `imx462_mono.json` tuning file, which stock Raspberry Pi OS does not ship yet:
 
-```
+```text
 ERROR IPAProxy ipa_proxy.cpp:189 Configuration file 'imx462_mono.json' not found for IPA module 'rpi/pisp'
 ```
 
