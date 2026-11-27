@@ -139,9 +139,7 @@ dtoverlay=imx462,4lane
 
 ### clock-frequency
 
-Kurokesu IMX462 modules carry a 37.125 MHz oscillator, which matches overlay default.
-
-Driver accepts 37.125 MHz or 74.25 MHz only. Any other value fails at probe with `External clock frequency ... is not supported`.
+Kurokesu IMX462 modules carry a 37.125 MHz oscillator, which matches overlay default. Driver also supports 74.25 MHz.
 
 ### mono
 
