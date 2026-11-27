@@ -236,5 +236,5 @@ On Pi 4 and older, replace `pisp` with `vc4`.
 ## Credits
 
 - FRAMOS and [Manivannan Sadhasivam](https://github.com/Mani-Sadhasivam) (Linaro) for original [imx290 driver](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/drivers/media/i2c/imx290.c)
-- [Dave Stevenson](https://github.com/6by9) of Raspberry Pi for IMX462 support in driver and [imx462 overlay](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/imx462-overlay.dts)
-- [geoffrey-vl](https://github.com/geoffrey-vl) for libcamera IMX462 helper and tuning ([raspberrypi/libcamera#207](https://github.com/raspberrypi/libcamera/pull/207))
+- [Dave Stevenson](https://github.com/6by9) (Raspberry Pi) for adding [IMX462 support](https://github.com/raspberrypi/linux/blob/rpi-6.18.y/arch/arm/boot/dts/overlays/imx462-overlay.dts)
+- [geoffrey-vl](https://github.com/geoffrey-vl) for [libcamera helper and tuning](https://github.com/raspberrypi/libcamera/pull/207)
