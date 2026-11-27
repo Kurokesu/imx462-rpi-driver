@@ -153,13 +153,6 @@ Mono modules output `Y10` and `Y12` grayscale formats instead of Bayer.
 
 Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
 
-> [!TIP]
-> Options can be combined. Example (cam0, 4-lane, mono):
->
-> ```ini
-> dtoverlay=imx462,cam0,4lane,mono
-> ```
-
 ## Output formats
 
 | Link frequency | Data rate / lane | Lanes | Bit depth | Width | Height | Max FPS |
@@ -174,6 +167,13 @@ Mono modules need Kurokesu `libcamera` fork, see [Setup](#setup).
 | 222.75 MHz | 445.5 Mbps | 4 | 12-bit | 1920 | 1080 | 60 fps |
 | 445.5 MHz | 891 Mbps | 2 | 10-bit | 1920 | 1080 | 60 fps |
 | 445.5 MHz | 891 Mbps | 2 | 12-bit | 1920 | 1080 | 60 fps |
+
+> [!TIP]
+> Options can be combined. Example (cam0, 4-lane, mono):
+>
+> ```ini
+> dtoverlay=imx462,cam0,4lane,mono
+> ```
 
 ## HCG mode
 
